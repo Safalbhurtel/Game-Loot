@@ -1,0 +1,133 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile data including roles.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "seller", "admin"] },
+        "createdAt": { "type": "string", "format": "timestamp" },
+        "updatedAt": { "type": "string", "format": "timestamp" }
+      },
+      "required": ["email", "role", "createdAt"]
+    },
+    "Seller": {
+      "title": "Seller",
+      "description": "Seller profile and trust info.",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string", "description": "The UID of the user who manages this seller" },
+        "name": { "type": "string" },
+        "trustScore": { "type": "number" },
+        "isVerified": { "type": "boolean" },
+        "logoUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "timestamp" },
+        "updatedAt": { "type": "string", "format": "timestamp" }
+      },
+      "required": ["ownerId", "name", "trustScore", "isVerified", "createdAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Global product definition.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "isTrending": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "timestamp" },
+        "updatedAt": { "type": "string", "format": "timestamp" }
+      },
+      "required": ["title", "category", "createdAt"]
+    },
+    "Listing": {
+      "title": "Listing",
+      "description": "A seller's offer for a product.",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "price": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "isInstantDelivery": { "type": "boolean" },
+        "paymentMethods": { "type": "array", "items": { "type": "string" } },
+        "region": { "type": "string" },
+        "platform": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "createdAt": { "type": "string", "format": "timestamp" },
+        "updatedAt": { "type": "string", "format": "timestamp" }
+      },
+      "required": ["productId", "sellerId", "price", "stock", "status", "createdAt"]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "description": "User's saved deal (listing).",
+      "type": "object",
+      "properties": {
+        "listingId": { "type": "string" },
+        "productId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "timestamp" }
+      },
+      "required": ["listingId", "productId", "createdAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "User review for a product.",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "userId": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "timestamp" }
+      },
+      "required": ["productId", "userId", "rating", "createdAt"]
+    },
+    "Alert": {
+      "title": "Alert",
+      "description": "User subscription for price drops.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "productId": { "type": "string" },
+        "targetPrice": { "type": "number" },
+        "createdAt": { "type": "string", "format": "timestamp" }
+      },
+      "required": ["email", "productId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles."
+    },
+    "/users/{userId}/favorites/{favoriteId}": {
+      "schema": { "$ref": "#/entities/Favorite" },
+      "description": "Saved listings for a user."
+    },
+    "/sellers/{sellerId}": {
+      "schema": { "$ref": "#/entities/Seller" },
+      "description": "Platform sellers."
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Catalog of all compareable digital products."
+    },
+    "/listings/{listingId}": {
+      "schema": { "$ref": "#/entities/Listing" },
+      "description": "Seller offers for products."
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "User reviews on products."
+    },
+    "/alerts/{alertId}": {
+      "schema": { "$ref": "#/entities/Alert" },
+      "description": "Price drop alerts."
+    }
+  }
+}

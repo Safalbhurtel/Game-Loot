@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@theme {
+  --color-surface: #0F0F12;
+  --color-surface-dim: #0A0A0C;
+  --color-surface-bright: rgba(255, 255, 255, 0.1);
+  --color-surface-container-lowest: #0A0A0C;
+  --color-surface-container-low: rgba(255, 255, 255, 0.02);
+  --color-surface-container: rgba(255, 255, 255, 0.05);
+  --color-surface-container-high: rgba(255, 255, 255, 0.08);
+  --color-surface-container-highest: rgba(255, 255, 255, 0.15);
+  
+  --color-on-surface: #e2e8f0;
+  --color-on-surface-variant: #64748b;
+  --color-inverse-surface: #e2e8f0;
+  --color-inverse-on-surface: #0f172a;
+  
+  --color-outline: rgba(255, 255, 255, 0.2);
+  --color-outline-variant: rgba(255, 255, 255, 0.1);
+  
+  --color-surface-tint: #818cf8;
+  --color-primary: #818cf8;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #4f46e5;
+  --color-on-primary-container: #ffffff;
+  --color-inverse-primary: #6366f1;
+  
+  --color-secondary: #34d399;
+  --color-on-secondary: #064e3b;
+  --color-secondary-container: rgba(16, 185, 129, 0.2);
+  --color-on-secondary-container: #34d399;
+  
+  --color-tertiary: #fbbf24;
+  --color-on-tertiary: #451a03;
+  --color-tertiary-container: rgba(245, 158, 11, 0.2);
+  --color-on-tertiary-container: #fbbf24;
+  
+  --color-error: #ef4444;
+  --color-on-error: #7f1d1d;
+  --color-error-container: rgba(239, 68, 68, 0.2);
+  --color-on-error-container: #fecaca;
+  
+  --color-background: #0A0A0C;
+  --color-on-background: #e2e8f0;
+  
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: var(--color-surface-dim);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-surface-container-high);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-container-highest);
+}
